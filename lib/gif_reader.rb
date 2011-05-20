@@ -1,13 +1,32 @@
 class GifReader
 
+  COLOR_PALETTE = [2, 4, 8, 16, 32, 64, 128, 256]
+
   def initialize(file_name)
     @stream = File.open(file_name, "rb")
+    check_file_format
   end
 
-  def execute
-    check_file_format
-    return get_header_parameters
+  def get_header_parameters
+    parameters = {}
+
+    parameters[:width]            = read_int16
+    parameters[:height]           = read_int16
+
+    bits_table = read_bits_from_byte
+    parameters[:glob_color_tab]   = bits_table.first == "1" ? "yes" : "no"
+    parameters[:colors]           = get_color_table_size(bits_table)
+    
+    parameters[:background_color] = @stream.readbyte
+
+    if parameters[:glob_color_tab] == "no"
+      parameters[:ratio]          = @stream.readbyte 
+    end
+  
+    return parameters
   end
+
+  alias_method :execute, :get_header_parameters
 
 private
 
@@ -17,16 +36,18 @@ private
     end
   end
 
-  def get_header_parameters
-    parameters = {}
+  def read_int16
+    @stream.read(2).unpack("s").first
+  end
 
-    parameters[:width]            = @stream.read(2).unpack("s").first
-    parameters[:height]           = @stream.read(2).unpack("s").first
-    parameters[:colors]           = @stream.readbyte
-    parameters[:background_color] = @stream.readbyte
-    parameters[:ratio]            = @stream.readbyte
+  def read_bits_from_byte
+    byte = @stream.readbyte.to_s(2)
+    bits = byte.split("")
+  end
 
-    parameters
+  def get_color_table_size(bits_table)
+    three_bits =  bits_table[1..3].join
+    COLOR_PALETTE[three_bits.to_i(2)]
   end
 
 end
