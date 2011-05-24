@@ -4,12 +4,14 @@ require_relative "gif_reader.rb"
 
 class GifConverter
 
+	attr_reader :parameters, :file_name
+
   def initialize(file_name)
-    @parameters = GifReader.new(file_name).execute
+    @parameters = GifReader.new(file_name).header_parameters
     @file_name = file_name
   end
 
-  def change_colors_to_grey_scale
+  def to_grey_scale(name_new_file)
     check_exist_global_colors_table
 
     bytes_array = read_all_bytes
@@ -19,16 +21,13 @@ class GifConverter
     temp << bytes_array.pack("c*")
     temp.close
 
-    FileUtils.cp(@file_name,"#{@file_name}.bak")
-    FileUtils.mv(temp.path, @file_name)
+    FileUtils.mv(temp.path, name_new_file)
   end
-
-  alias_method :execute, :change_colors_to_grey_scale
 
 private 
 
   def check_exist_global_colors_table
-    if @parameters[:glob_color_tab] == "no"
+    if @parameters[:glob_color_tab] == false
       raise "Input haven't global colors table"
     end  
   end
