@@ -1,3 +1,9 @@
+require 'bundler'
+
+task :install do
+	Bundler::GemHelper.install_tasks
+end
+
 task :default => :test
 
 task :test do
