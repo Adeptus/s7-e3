@@ -1,8 +1,8 @@
 require          "tempfile"  
 require          "fileutils"
-require_relative "gif_reader.rb"
+require_relative "gif_reader"
 
-module Giftool
+module GifTool
 	class GifConverter
 
 		attr_reader :parameters, :file_name
@@ -42,9 +42,9 @@ module Giftool
 		def change_colors_table(bytes_array)
 		  i = 14                 # if global colors table exist start in 14 byte
 		  @parameters[:colors].times do 
-		    pick = bytes_array[i]
+		    pick = bytes_array[i]		#pick green value(RGB)
 		    a = i - 1
-		    bytes_array.fill(pick, a ..a + 2)
+		    bytes_array.fill(pick, a ..a + 2) #change red and blue value to green
 		    i += 3
 		  end
 		  bytes_array

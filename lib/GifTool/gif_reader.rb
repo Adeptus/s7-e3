@@ -1,4 +1,4 @@
-module Giftool
+module GifTool
 	class GifReader
 
 		def initialize(file_name)
