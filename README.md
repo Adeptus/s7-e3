@@ -5,14 +5,22 @@ gem to read and convert gif format data
 ## Instruction
 
 class GifReader
+
 	method "header_parameters" get header data: 
+	
 		-width and height,
+		
 		-existance global colors table,
+		
 		-colors pallette(2, 4, 8, 16, 32, 64, 128 or 256 colors)
+		
 		-background color
+		
 		-ratio
 
+
 class GifConverter
+
 		method "to_grey_scale" change image collors to grey scale( Gif file must has global color table)
 
 ## Examples
