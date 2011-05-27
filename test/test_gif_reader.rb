@@ -1,5 +1,5 @@
 require          'test/unit'
-require_relative '../lib/GifTool/gif_reader'
+require_relative '../lib/gif_tool'
 
 class GifReaderTest < Test::Unit::TestCase
 
@@ -11,7 +11,7 @@ class GifReaderTest < Test::Unit::TestCase
 
   def test_sample_gif_file
     file = GifTool::GifReader.new("./data/a.gif")
-		header_hash = file.header_parameters
+    header_hash = file.header_parameters
 
     assert_equal 32, header_hash[:width]
     assert_equal 52, header_hash[:height]

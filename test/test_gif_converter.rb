@@ -1,6 +1,5 @@
 require          'test/unit'
-require          'fileutils'
-require_relative '../lib/GifTool/gif_converter'
+require_relative '../lib/gif_tool'
 
 class GifConverterTest < Test::Unit::TestCase
 
@@ -12,10 +11,10 @@ class GifConverterTest < Test::Unit::TestCase
 
   def test_change_palette_to_gray_scale
     file = GifTool::GifConverter.new("./test/data/smurfs.gif")
-		file.to_grey_scale("./test/data/smurfs.bw.gif")
+    file.to_grey_scale("./test/data/smurfs.bw.gif")
 
     assert_equal true, File.exists?("./test/data/smurfs.bw.gif")
 
-		FileUtils.remove_file("./test/data/smurfs.bw.gif")
+    FileUtils.remove_file("./test/data/smurfs.bw.gif")
   end
 end
