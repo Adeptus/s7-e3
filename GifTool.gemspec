@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "GifTool/version"
+require "gif_tool/version"
 
 Gem::Specification.new do |s|
   s.name        = "GifTool"
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Mariusz Koziel"]
   s.email       = ["adept_koza@o2.pl"]
   s.homepage    = ""
-  s.summary     = %q{Gif converter}
+  s.summary     = %q{Gif Tool}
   s.description = %q{Sample gem to read and convert gif format data}
 
   s.rubyforge_project = "GifTool"

@@ -1,8 +1,6 @@
 module GifTool
   class GifConverter
 
-    attr_reader :parameters, :file_name
-
     def initialize(file_name)
       @parameters = GifReader.new(file_name).header_parameters
       @file_name = file_name
@@ -25,7 +23,7 @@ module GifTool
 
     def check_exist_global_colors_table
       if @parameters[:glob_color_tab] == false
-        raise "Input haven't global colors table"
+        raise "This gif file haven't global colors table"
       end  
     end
 
@@ -40,7 +38,7 @@ module GifTool
       @parameters[:colors].times do 
         pick = bytes_array[i]    #pick green value(RGB)
         a = i - 1
-        bytes_array.fill(pick, a ..a + 2) #change red and blue value to green
+        bytes_array.fill(pick, a ..a + 2) #change red and blue value to green value
         i += 3
       end
       bytes_array
